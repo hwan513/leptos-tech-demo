@@ -45,10 +45,20 @@ Some of the tools installed are as follows with their equivalents in the JavaScr
 - [Clippy](https://github.com/rust-lang/rust-clippy): Rust linter, similar to ESLint.
 - [rustfmt](https://github.com/rust-lang/rustfmt): Rust formatter, similar to Prettier.
 
-### Trunk
+### Trunk and WebAssembly
 
-Trunk is a WASM web application bundler for Rust, working for frameworks such as [Leptos](https://leptos.dev), [Sycamore](https://sycamore-rs.netlify.app) and [Yew](https://yew.rs). It functions similar to how Vite does for the common JavaScript frontend frameworks, being able to create a dev server and allowing for the bundling of the application with a build command.
+Trunk is a WASM web application bundler for Rust, working for frameworks such as [Leptos](https://leptos.dev), [Sycamore](https://sycamore-rs.netlify.app) and [Yew](https://yew.rs). It functions similar to how Vite does for the common JavaScript frontend frameworks, being able to create a dev server and allowing for the bundling of the application with a build command. In addition to Trunk, the `wasm32-unknown-unknown` target must also be added to allow for compilation of Rust code into WebAssembly.
+
+To install Trunk and WebAssembly target run:
+
+```sh
+cargo install trunk
+# wasm target doesn't need to be defined in this project because of rust-toolchain.toml
+rustup target add wasm32-unknown-unknown
+```
 
 Unfortunately, Trunk falls short of Vite on the dev server side, due to the nature of Rust compilation into WebAssembly. The dev server in Trunk is much slower compared to Vite and it does not support Hot Module Reloading, meaning the page will refresh after a change to the code and that state will not persist.
+
+## Building and running
 
 # Concepts Covered
