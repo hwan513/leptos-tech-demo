@@ -59,6 +59,22 @@ rustup target add wasm32-unknown-unknown
 
 Unfortunately, Trunk falls short of Vite on the dev server side, due to the nature of Rust compilation into WebAssembly. The dev server in Trunk is much slower compared to Vite and it does not support Hot Module Reloading, meaning the page will refresh after a change to the code and that state will not persist.
 
-## Building and running
+## Running this demo
+
+### Running for development
+
+To open the app in your default browser at `http://localhost:3000`, run:
+
+```sh
+trunk serve --port 3000 --open
+```
+
+### Building for deployment
+
+To build the app for deployment into the `dist` folder, run:
+
+```sh
+trunk build --release
+```
 
 # Concepts Covered
