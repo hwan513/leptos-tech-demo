@@ -1,6 +1,10 @@
 use leptos::*;
 use leptos_meta::*;
 
+mod components;
+
+use components::lab1::Lab1;
+
 /// The application component
 #[component]
 pub fn App() -> impl IntoView {
@@ -13,6 +17,7 @@ pub fn App() -> impl IntoView {
         <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <div class="container">
             <h1>"Hello, world!"</h1>
+            <Lab1/>
         </div>
     }
 }
