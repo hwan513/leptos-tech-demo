@@ -11,8 +11,8 @@ pub fn App() -> impl IntoView {
         <Title text="Leptos Demo"/>
         <Meta charset="UTF-8"/>
         <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <div>
-            <p>"Hello, world!"</p>
+        <div class="container">
+            <h1>"Hello, world!"</h1>
         </div>
     }
 }
