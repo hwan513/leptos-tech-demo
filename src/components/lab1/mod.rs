@@ -35,3 +35,17 @@ pub fn AboutMe(
         <p>"My name is Henry. I'm " {age} " years old, and I like " {favourite_food} "."</p>
     }
 }
+
+#[component]
+pub fn LightBulb() -> impl IntoView {
+    let (is_on, set_on) = create_signal(false);
+    let toggle_light = move |_| {
+        set_on(!is_on.get());
+    };
+    view! {
+        <img
+            src=move || if is_on() { "images/light-on.png" } else { "images/light-off.png" }
+            on:click=toggle_light
+        />
+    }
+}
