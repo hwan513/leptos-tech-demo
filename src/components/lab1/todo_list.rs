@@ -32,7 +32,7 @@ pub fn TodoList() -> impl IntoView {
     ];
 
     let (todo_list, set_todo_list) = create_signal(initial_todos);
-    let mut next_id = todo_list.get().len();
+    let mut next_id = todo_list.get_untracked().len();
 
     let remove_todo = move |id| {
         set_todo_list.update(|todo_list| {
