@@ -4,7 +4,7 @@ use leptos_meta::*;
 mod components;
 mod pages;
 
-use pages::lab1::Lab1;
+use crate::pages::lab1::Lab1;
 
 /// The application component
 #[component]
