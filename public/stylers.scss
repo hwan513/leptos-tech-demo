@@ -13,6 +13,7 @@
   padding: var(--size-3);
   margin: var(--size-2);
   box-shadow: var(--shadow-3);
+  border-radius: var(--radius-2);
 }
 
 .todo-4670af4:has(input:checked) {
@@ -27,6 +28,6 @@
   gap: var(--size-2);
 }
 
-.todo_form-4670af4>input {
+.todo_form-4670af4 > input {
   flex-grow: 1;
 }
