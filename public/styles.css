@@ -1,11 +1,14 @@
 /* --------------------- Open Props --------------------------- */
 
 /* the props */
-@import "https://unpkg.com/open-props";
+@import "http://localhost:8000/open-props.min.css";
+/* @import "https://unpkg.com/open-props"; */
 
 /* optional imports that use the props */
-@import "https://unpkg.com/open-props/normalize.min.css";
-@import "https://unpkg.com/open-props/buttons.min.css";
+@import "http://localhost:8000/normalize.min.css";
+@import "http://localhost:8000/buttons.min.css";
+/* @import "https://unpkg.com/open-props/normalize.min.css"; */
+/* @import "https://unpkg.com/open-props/buttons.min.css"; */
 
 /* ------------------------Pico  ------------------------------ */
 /* @import "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"; */

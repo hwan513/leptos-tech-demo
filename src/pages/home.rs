@@ -1,10 +1,10 @@
 use leptos::*;
 
-use crate::components::lab1::*;
+use crate::components::home::*;
 
 /// This component will encapsulate all the features explored in lab 1
 #[component]
-pub fn Lab1() -> impl IntoView {
+pub fn Home() -> impl IntoView {
     view! {
         <main>
             <Introduction/>

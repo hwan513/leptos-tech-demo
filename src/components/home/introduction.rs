@@ -4,8 +4,8 @@ use leptos::*;
 pub fn Introduction() -> impl IntoView {
     view! {
         <section>
-            <h1>"Lab 1"</h1>
-            <p>"This section will explore the features explored in lab 1 including"</p>
+            <h1>"Home"</h1>
+            <p>"This page will explore the features explored in lab 1 including"</p>
             <ul>
                 // view macro; strings inside tags; no fragments; on:event
                 <li>"Basic syntax: JSX ⇒ RSTML"</li>
@@ -14,8 +14,11 @@ pub fn Introduction() -> impl IntoView {
                 // match statements and show when also exist
                 <li>"Simple control flow: Ternary ⇒ if/else statements"</li>
                 <li>"Components and props"</li>
-                <li>"Code execution: function ⇒ closures "</li>
+                <li>"Code execution and callbacks: function ⇒ closures "</li>
+                <li>"Iteration: .map() ⇒ <For/> "</li>
             </ul>
+            <p>"Navigate to Pokedex..."</p>
+            <p>"Navigate to Pokeshop..."</p>
         </section>
     }
 }

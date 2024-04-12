@@ -4,7 +4,7 @@ use leptos_meta::*;
 mod components;
 mod pages;
 
-use crate::pages::lab1::Lab1;
+use crate::pages::home::Home;
 
 /// The application component
 #[component]
@@ -17,7 +17,7 @@ pub fn App() -> impl IntoView {
         <Meta charset="UTF-8"/>
         <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <div class="container">
-            <Lab1/>
+            <Home/>
         </div>
     }
 }
