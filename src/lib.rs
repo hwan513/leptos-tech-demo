@@ -2,8 +2,9 @@ use leptos::*;
 use leptos_meta::*;
 
 mod components;
+mod pages;
 
-use components::lab1::Lab1;
+use pages::lab1::Lab1;
 
 /// The application component
 #[component]
