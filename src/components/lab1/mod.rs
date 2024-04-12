@@ -4,9 +4,13 @@ use leptos::*;
 #[component]
 pub fn Lab1() -> impl IntoView {
     view! {
-        <h1>"Lab 1"</h1>
-        <About/>
-        <LightBulb/>
+        <main>
+            <section>
+                <h1>"Lab 1"</h1>
+            </section>
+            <About/>
+            <LightBulb/>
+        </main>
     }
 }
 
@@ -15,15 +19,17 @@ pub fn Lab1() -> impl IntoView {
 pub fn About() -> impl IntoView {
     let (name, setName) = create_signal(String::new());
     view! {
-        <input
-            type="email"
-            placeholder="Enter your name"
-            on:input=move |ev| {
-                setName(event_target_value(&ev));
-            }
-        />
+        <section>
+            <input
+                type="email"
+                placeholder="Enter your name"
+                on:input=move |ev| {
+                    setName(event_target_value(&ev));
+                }
+            />
 
-        <AboutMe name=name age=21/>
+            <AboutMe name=name age=21/>
+        </section>
     }
 }
 
@@ -54,11 +60,13 @@ pub fn LightBulb() -> impl IntoView {
         set_on(!is_on.get());
     };
     view! {
-        <img
-            // To keep reactitivity, the if/else control flow needs to enclosed by a closure:
-            // move || if {} else {}
-            src=move || if is_on() { "images/light-on.png" } else { "images/light-off.png" }
-            on:click=toggle_light
-        />
+        <section>
+            <img
+                // To keep reactitivity, the if/else control flow needs to enclosed by a closure:
+                // move || if {} else {}
+                src=move || if is_on() { "images/light-on.png" } else { "images/light-off.png" }
+                on:click=toggle_light
+            />
+        </section>
     }
 }
