@@ -32,6 +32,7 @@ pub fn TodoList() -> impl IntoView {
     ];
 
     let (todo_list, set_todo_list) = create_signal(initial_todos);
+    let mut next_id = todo_list.get().len();
 
     let remove_todo = move |id| {
         set_todo_list.update(|todo_list| {
@@ -45,6 +46,17 @@ pub fn TodoList() -> impl IntoView {
         });
     };
 
+    let add_todo = move |description: String| {
+        set_todo_list.update(move |todo_list| {
+            todo_list.push(Todo {
+                id: next_id,
+                description,
+                is_complete: create_rw_signal(false),
+            });
+        });
+        next_id += 1;
+    };
+
     // let toggle_complete = set_todo_list.update(|todo|)
 
     view! {
@@ -53,12 +65,7 @@ pub fn TodoList() -> impl IntoView {
             <For each=todo_list key=|todo_item| todo_item.id let:todo_item>
                 <TodoItem todo_item=todo_item.clone() on_click=move |_| remove_todo(todo_item.id)/>
             </For>
-            <h3>"Add Todo"</h3>
-            <div class=todo_style::todo_form>
-                <label for="todoDescription">"Description"</label>
-                <input id="todoDescription" type="text"/>
-                <button>Submit</button>
-            </div>
+            <AddTodo add_todo=add_todo/>
 
         </section>
     }
@@ -89,5 +96,28 @@ fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> im
             </label>
             <button on:click=on_click>Remove</button>
         </div>
+    }
+}
+
+#[component]
+fn AddTodo<F>(mut add_todo: F) -> impl IntoView
+where
+    F: FnMut(String) + 'static,
+{
+    let description = create_node_ref();
+    view! {
+        <h3>"Add Todo"</h3>
+        <form class=todo_style::todo_form>
+            <label for="todoDescription">"Description"</label>
+            <input id="todoDescription" type="text" node_ref=description/>
+            <input
+                type="submit"
+                on:click=move |ev| {
+                    ev.prevent_default();
+                    add_todo(description.get().expect("ref should have loaded").value());
+                }
+            />
+
+        </form>
     }
 }
