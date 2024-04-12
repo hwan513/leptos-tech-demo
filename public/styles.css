@@ -7,9 +7,34 @@
 @import "https://unpkg.com/open-props/normalize.min.css";
 @import "https://unpkg.com/open-props/buttons.min.css";
 
+/* ------------------------Pico  ------------------------------ */
+/* @import "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"; */
 /* ------------------------------------------------------------ */
 
 .container {
   width: min(100% - 2rem, 50rem);
   margin-inline: auto;
+}
+
+input {
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: var(--size-3);
+}
+
+p,
+input {
+  padding-block: var(--size-2);
+}
+
+section {
+  padding: var(--size-3);
+  box-shadow: var(--shadow-2);
 }
