@@ -10,6 +10,7 @@ pub fn Lab1() -> impl IntoView {
             <Introduction/>
             <About/>
             <LightBulb/>
+            <TodoList/>
         </main>
     }
 }

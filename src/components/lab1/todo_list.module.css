@@ -1,0 +1,20 @@
+.todo:nth-child(odd) {
+  background-color: var(--gray-7);
+}
+
+.todo:nth-child(even) {
+  background-color: var(--gray-6);
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--size-3);
+  margin: var(--size-2);
+  box-shadow: var(--shadow-3);
+}
+
+.todo:has(input:checked) {
+  text-decoration: line-through;
+}
