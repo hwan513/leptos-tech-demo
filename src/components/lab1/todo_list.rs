@@ -1,11 +1,6 @@
 use leptos::{ev::MouseEvent, *};
-use stylance::{import_crate_style, import_style};
+use stylance::import_style;
 
-import_crate_style!(
-    #[allow(dead_code)]
-    my_style,
-    "src/components/lab1/todo_list.module.css"
-);
 import_style!(todo_style, "todo_list.module.css");
 
 #[derive(Clone)]
@@ -58,6 +53,13 @@ pub fn TodoList() -> impl IntoView {
             <For each=todo_list key=|todo_item| todo_item.id let:todo_item>
                 <TodoItem todo_item=todo_item.clone() on_click=move |_| remove_todo(todo_item.id)/>
             </For>
+            <h3>"Add Todo"</h3>
+            <div class=todo_style::todo_form>
+                <label for="todoDescription">"Description"</label>
+                <input id="todoDescription" type="text"/>
+                <button>Submit</button>
+            </div>
+
         </section>
     }
 }
@@ -72,7 +74,7 @@ fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> im
         }
     };
     view! {
-        <div class=my_style::todo>
+        <div class=todo_style::todo>
             <label>
                 <input
                     type="checkbox"

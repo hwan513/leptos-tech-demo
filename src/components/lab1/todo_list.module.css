@@ -18,3 +18,15 @@
 .todo:has(input:checked) {
   text-decoration: line-through;
 }
+
+.todo_form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+.todo_form>input {
+  flex-grow: 1;
+}

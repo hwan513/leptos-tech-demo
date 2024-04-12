@@ -18,3 +18,15 @@
 .todo-4670af4:has(input:checked) {
   text-decoration: line-through;
 }
+
+.todo_form-4670af4 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+.todo_form-4670af4>input {
+  flex-grow: 1;
+}
