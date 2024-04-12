@@ -6,6 +6,7 @@ mod components;
 mod pages;
 
 use crate::pages::home::Home;
+use crate::pages::not_found::NotFound;
 use crate::pages::page_layout::PageLayout;
 use crate::pages::pokedex::Pokedex;
 
@@ -39,6 +40,7 @@ fn PageRoutes() -> impl IntoView {
                 <Route path="" view=move || navigate("home", nav_replace.clone())/>
                 <Route path="home" view=Home/>
                 <Route path="pokedex" view=Pokedex/>
+                <Route path="*" view=NotFound/>
             </Route>
         </Routes>
     }
