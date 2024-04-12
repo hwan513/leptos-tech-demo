@@ -19,6 +19,18 @@
   margin-inline: auto;
 }
 
+nav {
+  padding-inline: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-3);
+}
+
+nav > * {
+  padding: var(--size-3);
+}
+
 h1,
 h2,
 h3,

@@ -1,12 +1,12 @@
-.todo-4670af4:nth-child(odd) {
+.todo-4767b60:nth-child(odd) {
   background-color: var(--gray-7);
 }
 
-.todo-4670af4:nth-child(even) {
+.todo-4767b60:nth-child(even) {
   background-color: var(--gray-6);
 }
 
-.todo-4670af4 {
+.todo-4767b60 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,11 +16,11 @@
   border-radius: var(--radius-2);
 }
 
-.todo-4670af4:has(input:checked) {
+.todo-4767b60:has(input:checked) {
   text-decoration: line-through;
 }
 
-.todo_form-4670af4 {
+.todo_form-4767b60 {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -28,6 +28,6 @@
   gap: var(--size-2);
 }
 
-.todo_form-4670af4 > input {
+.todo_form-4767b60>input {
   flex-grow: 1;
 }
