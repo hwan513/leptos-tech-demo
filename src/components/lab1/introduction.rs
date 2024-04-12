@@ -7,7 +7,7 @@ pub fn Introduction() -> impl IntoView {
             <h1>"Lab 1"</h1>
             <p>"This section will explore the features explored in lab 1 including"</p>
             <ul>
-                // view macro; strings inside tags; no fragments
+                // view macro; strings inside tags; no fragments; on:event
                 <li>"Basic syntax: JSX ⇒ RSTML"</li>
                 // signal vs state paradigm, create_effect and create_ref also exist
                 <li>"Data primitives: useState ⇒ create_signal"</li>

@@ -28,7 +28,7 @@ fn AboutMe(
     #[prop(optional)]
     age: u8,
     /// Optional property with default: if no value is given, then it will default to pizza
-    #[prop(default="pizza".to_string())]
+    #[prop(default="pizza 🍕".to_string())]
     favourite_food: String,
 ) -> impl IntoView {
     view! {
