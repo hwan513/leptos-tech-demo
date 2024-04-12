@@ -5,9 +5,9 @@ use leptos_router::*;
 pub fn PageLayout() -> impl IntoView {
     view! {
         <nav>
-            <a>"Home"</a>
-            <a>"Pokedex"</a>
-            <a>"PokeShop"</a>
+            <a href="/home">"Home"</a>
+            <a href="/pokedex">"Pokedex"</a>
+            <a href="pokeshop">"PokeShop"</a>
         </nav>
         <div class="container">
             <Outlet/>
