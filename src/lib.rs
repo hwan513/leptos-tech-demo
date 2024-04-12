@@ -16,7 +16,6 @@ pub fn App() -> impl IntoView {
         <Meta charset="UTF-8"/>
         <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <div class="container">
-            <h1>"Hello, world!"</h1>
             <Lab1/>
         </div>
     }
