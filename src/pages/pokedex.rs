@@ -2,6 +2,8 @@ use leptos::*;
 use leptos_router::*;
 use stylance::import_style;
 
+use crate::components::pokedex::PokedexList;
+
 import_style!(poke_style, "pokedex.module.css");
 
 #[component]
@@ -15,9 +17,4 @@ pub fn Pokedex() -> impl IntoView {
             </main>
         </div>
     }
-}
-
-#[component]
-fn PokedexList() -> impl IntoView {
-    view! { <aside class=poke_style::list>"Text"</aside> }
 }
