@@ -6,11 +6,14 @@ mod components;
 mod pages;
 mod structs;
 
+use crate::pages::checkout::Checkout;
 use crate::pages::home::Home;
 use crate::pages::not_found::NotFound;
 use crate::pages::page_layout::PageLayout;
 use crate::pages::pokedex_details::PokedexDetails;
 use crate::pages::pokedex_layout::PokedexLayout;
+use crate::pages::pokeshop::Pokeshop;
+use crate::pages::pokeshop_layout::PokeshopLayout;
 
 /// The application component
 #[component]
@@ -42,7 +45,6 @@ fn PageRoutes() -> impl IntoView {
         <Routes>
             <Route path="/" view=PageLayout>
                 <Route path="" view=move || use_navigate()("home", nav_replace.clone())/>
-
                 <Route path="home" view=Home/>
                 <Route path="pokedex" view=PokedexLayout>
                     <Route
@@ -51,6 +53,10 @@ fn PageRoutes() -> impl IntoView {
                     />
 
                     <Route path=":id" view=PokedexDetails/>
+                </Route>
+                <Route path="pokeshop" view=PokeshopLayout>
+                    <Route path="" view=Pokeshop/>
+                    <Route path="checkout" view=Checkout/>
                 </Route>
                 <Route path="*" view=NotFound/>
             </Route>

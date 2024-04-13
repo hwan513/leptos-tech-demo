@@ -90,6 +90,54 @@
 }
 
 
+.product-e82ce9e {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: var(--size-1) dotted var(--gray-3);
+  gap: var(--size-5);
+}
+
+.product-e82ce9e > img {
+  display: block;
+  width: 200px;
+  height: 200px;
+}
+
+
+.cart-24ccdeb {
+  border: var(--border-size-1) dotted black;
+  background-color: var(--gray-6);
+  justify-content: flex-start;
+  gap: var(--size-4);
+  padding: var(--size-5);
+  margin-block: var(--size-3);
+  position: sticky;
+  top: var(--size-3);
+}
+
+.cart_container-24ccdeb {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--size-4);
+}
+
+.cart_item-24ccdeb {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--size-1);
+}
+
+.cart_item-24ccdeb > img {
+  width: 50px;
+  height: 50px;
+}
+
+
 .todo-4767b60:nth-child(odd) {
   background-color: var(--gray-7);
 }
