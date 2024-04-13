@@ -32,7 +32,7 @@ fn AboutMe(
     favourite_food: String,
 ) -> impl IntoView {
     view! {
-        <p>"Hello " {name} "and welcome to Leptos Demo!"</p>
+        <p>"Hello " {name} " and welcome to Leptos Demo!"</p>
         <p>"My name is Henry. I'm " {age} " years old, and I like " {favourite_food} "."</p>
     }
 }
