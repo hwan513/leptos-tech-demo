@@ -9,6 +9,7 @@ mod structs;
 use crate::pages::home::Home;
 use crate::pages::not_found::NotFound;
 use crate::pages::page_layout::PageLayout;
+use crate::pages::pokedex_details::PokedexDetails;
 use crate::pages::pokedex_layout::PokedexLayout;
 
 /// The application component
@@ -28,19 +29,29 @@ pub fn App() -> impl IntoView {
     }
 }
 
-#[component]
+#[component(transparent)]
 fn PageRoutes() -> impl IntoView {
-    let navigate = use_navigate();
+    // Only way to reuse the replace due to rust borrow checker
     let nav_replace = NavigateOptions {
         replace: true,
-        ..NavigateOptions::default()
+        ..Default::default()
     };
+    let nav_replace_clone = nav_replace.clone();
+
     view! {
         <Routes>
             <Route path="/" view=PageLayout>
-                <Route path="" view=move || navigate("home", nav_replace.clone())/>
+                <Route path="" view=move || use_navigate()("home", nav_replace.clone())/>
+
                 <Route path="home" view=Home/>
-                <Route path="pokedex" view=PokedexLayout/>
+                <Route path="pokedex" view=PokedexLayout>
+                    <Route
+                        path=""
+                        view=move || use_navigate()("pokedex/1", nav_replace_clone.clone())
+                    />
+
+                    <Route path=":id" view=PokedexDetails/>
+                </Route>
                 <Route path="*" view=NotFound/>
             </Route>
         </Routes>
