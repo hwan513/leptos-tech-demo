@@ -1,8 +1,6 @@
 use leptos::*;
 
-use crate::components::pokeshop::Item;
-use crate::components::pokeshop::Product;
-use crate::components::pokeshop::ShoppingCart;
+use crate::components::pokeshop::*;
 
 #[component]
 pub fn Pokeshop() -> impl IntoView {
@@ -11,9 +9,8 @@ pub fn Pokeshop() -> impl IntoView {
     view! {
         <main>
             <h1>"Pokeshop"</h1>
-            <ShoppingCart title="My Cart"/>
+            <ShoppingCart/>
             {items.iter().map(|item| view! { <Product item=item.clone()/> }).collect_view()}
-
         </main>
     }
 }

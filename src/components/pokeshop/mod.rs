@@ -8,4 +8,5 @@ pub use self::pokeshop_context::CartContext;
 pub use self::pokeshop_context::Item;
 pub use self::pokeshop_context::PokeshopContextProvider;
 pub use self::product::Product;
+pub use self::shopping_cart::CartItems;
 pub use self::shopping_cart::ShoppingCart;

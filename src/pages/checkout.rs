@@ -1,6 +1,6 @@
 use leptos::*;
 
-use crate::components::pokeshop::{CartContext, ShoppingCart};
+use crate::components::pokeshop::{CartContext, CartItems};
 
 #[component]
 pub fn Checkout() -> impl IntoView {
@@ -8,7 +8,22 @@ pub fn Checkout() -> impl IntoView {
     view! {
         <main>
             <h1>"Checkout"</h1>
-            <ShoppingCart title="Checkout"/>
+            {if cart.with(std::vec::Vec::is_empty) {
+                view! {
+                    <h4>"Cart is empty"</h4>
+                    <a href="/pokeshop">"Back"</a>
+                }
+                    .into_view()
+            } else {
+                view! {
+                    <CartItems/>
+                    <a href="/pokeshop" on:click=move |_| cart.update(std::vec::Vec::clear)>
+                        "Checkout"
+                    </a>
+                }
+                    .into_view()
+            }}
+
         </main>
     }
 }
