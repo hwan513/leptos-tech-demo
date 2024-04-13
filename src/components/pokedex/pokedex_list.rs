@@ -59,7 +59,7 @@ pub fn PokedexList() -> impl IntoView {
 fn PokedexItem(pokemon: Pokemon) -> impl IntoView {
     view! {
         <A href=pokemon.id.to_string() class=poke_style::list_item>
-            <img src="images/pokeball.png"/>
+            <img src="/images/pokeball.png"/>
             <span>{pokemon.name}</span>
         </A>
     }
