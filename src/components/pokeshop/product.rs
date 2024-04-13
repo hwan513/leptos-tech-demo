@@ -8,7 +8,7 @@ import_style!(style, "product.module.css");
 
 #[component]
 pub fn Product(item: Item) -> impl IntoView {
-    let cart = use_context::<CartContext>().unwrap().0;
+    let CartContext(_, set_cart) = use_context::<CartContext>().unwrap();
     view! {
         <div class=style::product>
             <img src=item.image/>
@@ -16,7 +16,7 @@ pub fn Product(item: Item) -> impl IntoView {
                 <h3>{item.name}</h3>
                 <p>"Cost:" {item.cost}</p>
                 <button on:click=move |_| {
-                    cart.update(|cart| cart.push(item.id));
+                    set_cart.update(|cart| cart.push(item.id));
                 }>"Add to cart"</button>
             </div>
         </div>

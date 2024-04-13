@@ -4,7 +4,7 @@ use crate::components::pokeshop::{CartContext, CartItems};
 
 #[component]
 pub fn Checkout() -> impl IntoView {
-    let cart = use_context::<CartContext>().unwrap().0;
+    let CartContext(cart, set_cart) = use_context::<CartContext>().unwrap();
     view! {
         <main>
             <h1>"Checkout"</h1>
@@ -17,7 +17,7 @@ pub fn Checkout() -> impl IntoView {
             } else {
                 view! {
                     <CartItems/>
-                    <a href="/pokeshop" on:click=move |_| cart.update(std::vec::Vec::clear)>
+                    <a href="/pokeshop" on:click=move |_| set_cart.update(std::vec::Vec::clear)>
                         "Checkout"
                     </a>
                 }

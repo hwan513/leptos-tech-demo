@@ -1,4 +1,5 @@
 use leptos::*;
+use leptos_use::{storage::use_local_storage, utils::JsonCodec};
 
 #[derive(Clone, Debug)]
 pub struct Item {
@@ -50,11 +51,12 @@ fn initial_products() -> Vec<Item> {
 }
 
 #[derive(Clone, Copy, Debug)]
-pub struct CartContext(pub RwSignal<Vec<usize>>);
+pub struct CartContext(pub Signal<Vec<usize>>, pub WriteSignal<Vec<usize>>);
 
 impl CartContext {
     pub fn new() -> Self {
-        Self(create_rw_signal(vec![]))
+        let (state, set_state, _) = use_local_storage::<Vec<usize>, JsonCodec>("shopping-cart");
+        Self(state, set_state)
     }
 }
 
