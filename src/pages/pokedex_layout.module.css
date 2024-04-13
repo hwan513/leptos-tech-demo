@@ -8,10 +8,12 @@
 
 .dex_view {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   border: var(--border-size-2) solid black;
   border-radius: var(--radius-3);
   box-sizing: border-box;
+  padding: var(--size-8);
 }
