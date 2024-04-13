@@ -4,10 +4,10 @@ use stylance::import_style;
 
 use crate::components::pokedex::PokedexList;
 
-import_style!(poke_style, "pokedex.module.css");
+import_style!(poke_style, "pokedex_layout.module.css");
 
 #[component]
-pub fn Pokedex() -> impl IntoView {
+pub fn PokedexLayout() -> impl IntoView {
     view! {
         <h1>"Pokedex"</h1>
         <div class=poke_style::dex_container>

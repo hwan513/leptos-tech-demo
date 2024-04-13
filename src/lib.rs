@@ -9,7 +9,7 @@ mod structs;
 use crate::pages::home::Home;
 use crate::pages::not_found::NotFound;
 use crate::pages::page_layout::PageLayout;
-use crate::pages::pokedex::Pokedex;
+use crate::pages::pokedex_layout::PokedexLayout;
 
 /// The application component
 #[component]
@@ -40,7 +40,7 @@ fn PageRoutes() -> impl IntoView {
             <Route path="/" view=PageLayout>
                 <Route path="" view=move || navigate("home", nav_replace.clone())/>
                 <Route path="home" view=Home/>
-                <Route path="pokedex" view=Pokedex/>
+                <Route path="pokedex" view=PokedexLayout/>
                 <Route path="*" view=NotFound/>
             </Route>
         </Routes>
