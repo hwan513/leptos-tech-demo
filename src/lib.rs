@@ -5,14 +5,7 @@ use leptos_router::*;
 mod components;
 mod pages;
 
-use crate::pages::checkout::Checkout;
-use crate::pages::home::Home;
-use crate::pages::not_found::NotFound;
-use crate::pages::page_layout::PageLayout;
-use crate::pages::pokedex_details::PokedexDetails;
-use crate::pages::pokedex_layout::PokedexLayout;
-use crate::pages::pokeshop::Pokeshop;
-use crate::pages::pokeshop_layout::PokeshopLayout;
+use crate::pages::*;
 
 /// The application component
 #[component]
