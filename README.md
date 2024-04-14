@@ -26,11 +26,11 @@ There are two common editors to use for Rust:
 
 To get the project running you will need to install the Rust toolchain. The recommended way is to install [`rustup`](https://rustup.rs), which functions as a version manager for the toolchain, similar to the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm). Follow the instructions [here](https://rustup.rs) or see [other installation methods](https://rust-lang.github.io/rustup/installation/other.html#using-a-package-manager) to install rustup.
 
-Once `rustup` is installed, you will want to use `nightly` Rust to use all the features and syntax shown in this demo. When creating Leptos project you might have to manually set the toolchain to nightly instead of stable, but for this demo, it is handled with the [`rust-toolchain.toml`](./rust-toolchain.toml) file\dots
+Once `rustup` is installed, you will want to use `nightly` Rust to use all the features and syntax shown in this demo. When creating Leptos project you might have to manually set the toolchain to nightly instead of stable, but for this demo, it is handled with the [`rust-toolchain.toml`](./rust-toolchain.toml) file.
 
-!> [!NOTE]
+!> [!TIP]
 
-> If rustup doesn't work then you might need to restart your shell instance
+> If rustup doesn't work then you might need to restart your shell instance.
 
 ```sh
 rustup toolchain install nightly
@@ -61,6 +61,9 @@ cargo install trunk
 rustup target add wasm32-unknown-unknown
 ```
 
+> [!TIP]
+> If cargo install doesn't work on Windows, then you might need to install Visual Studio build tools
+
 Unfortunately, Trunk falls short of Vite on the dev server side, due to the nature of Rust compilation into WebAssembly. The dev server in Trunk is much slower compared to Vite and it does not support Hot Module Reloading, meaning the page will refresh after a change to the code and that state will not persist.
 
 ## Running this demo
@@ -79,6 +82,21 @@ To build the app for deployment into the `dist` folder, run:
 
 ```sh
 trunk build --release
+```
+
+## Generating your own Leptos Project
+
+There are two ways to generate your own Leptos CSR project:
+
+- [Leptos Client-Side Rendered (CSR) App Starter Template](https://github.com/leptos-rs/start-trunk)
+- [Leptos CSR with vite and stylance](https://github.com/basro/leptos-vite-stylance-starter)
+
+To generate a Leptos project using the first template, run:
+
+```sh
+cargo install cargo-generate
+cargo generate --git https://github.com/leptos-community/start-csr
+cd {{project-name}}
 ```
 
 # Concepts Covered
