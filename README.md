@@ -19,7 +19,7 @@ This section will go over how to install all the tooling related to Leptos, assu
 
 There are two common editors to use for Rust:
 
-- [Visual Studio Code](https://code.visualstudio.com) with the [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) extension. If using VS Code, I recommended also enabling Clippy to run within editor for better linting suggestions (see [here](https://code.visualstudio.com/docs/languages/rust#_linting).
+- [Visual Studio Code](https://code.visualstudio.com) with the [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) extension. If using VS Code, I recommended also enabling Clippy to run within editor for better linting suggestions (see [here](https://code.visualstudio.com/docs/languages/rust#_linting)).
 - [Rust Rover](https://www.jetbrains.com/rust/). This is JetBrains IDE for Rust.
 
 ### Rustup, Cargo and Rust
@@ -62,7 +62,7 @@ rustup target add wasm32-unknown-unknown
 ```
 
 > [!TIP]
-> If cargo install doesn't work on Windows, then you might need to install Visual Studio build tools
+> If `cargo install` doesn't work on Windows, then you might need to install Visual Studio build tools
 
 Unfortunately, Trunk falls short of Vite on the dev server side, due to the nature of Rust compilation into WebAssembly. The dev server in Trunk is much slower compared to Vite and it does not support Hot Module Reloading, meaning the page will refresh after a change to the code and that state will not persist.
 
@@ -75,6 +75,9 @@ To open the app in your default browser at `http://localhost:3000`, make sure th
 ```sh
 trunk serve --port 3000 --open
 ```
+
+> [!NOTE]
+> If `trunk serve` doesn't work, try running `trunk build` first and then trying `trunk serve` again.
 
 ### Building for deployment
 
