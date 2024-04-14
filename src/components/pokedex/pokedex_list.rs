@@ -1,11 +1,26 @@
 use gloo_net::http::Request;
+use serde::Deserialize;
 use leptos::{error::Result, *};
 use leptos_router::*;
 use stylance::import_style;
 
-use crate::structs::pokemon::*;
-
 import_style!(poke_style, "pokedex_list.module.css");
+
+#[derive(Deserialize)]
+pub struct PokemonsJson {
+    pub results: Vec<PokemonJson>,
+}
+
+#[derive(Deserialize)]
+pub struct PokemonJson {
+    pub name: String,
+}
+
+#[derive(Clone)]
+pub struct Pokemon {
+    pub id: usize,
+    pub name: String,
+}
 
 async fn fetch_pokemon_species((offset, limit): (usize, usize)) -> Result<Vec<Pokemon>> {
     let res = Request::get(&format!("https://pokeapi.co/api/v2/pokemon-species?offset={offset}&limit={limit}"))

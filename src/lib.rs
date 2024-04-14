@@ -4,7 +4,6 @@ use leptos_router::*;
 
 mod components;
 mod pages;
-mod structs;
 
 use crate::pages::checkout::Checkout;
 use crate::pages::home::Home;
