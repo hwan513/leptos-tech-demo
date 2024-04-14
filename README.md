@@ -28,8 +28,7 @@ To get the project running you will need to install the Rust toolchain. The reco
 
 Once `rustup` is installed, you will want to use `nightly` Rust to use all the features and syntax shown in this demo. When creating Leptos project you might have to manually set the toolchain to nightly instead of stable, but for this demo, it is handled with the [`rust-toolchain.toml`](./rust-toolchain.toml) file.
 
-!> [!TIP]
-
+> [!TIP]
 > If rustup doesn't work then you might need to restart your shell instance.
 
 ```sh
