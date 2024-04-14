@@ -49,3 +49,7 @@ section {
   padding: var(--size-3);
   box-shadow: var(--shadow-2);
 }
+
+[aria-current] {
+  font-weight: 900;
+}

@@ -20,12 +20,13 @@
   text-decoration: none;
 }
 
-.active {
-  background-color: black;
-}
-
 .list_item:nth-child(odd) {
   background-color: rgba(255, 0, 0, 0.1);
+}
+
+.list_item[aria-current] {
+  background-color: var(--indigo-7);
+  font-weight: 400;
 }
 
 .list_item img {
