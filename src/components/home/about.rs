@@ -1,6 +1,8 @@
 use leptos::*;
 
-/// Usage of signals and prop is demonstrated here
+/// About component, with an on:input event to set the name for the greeting and a brief
+/// introduction of myself.
+/// Usage of signals and prop (optional and default) is demonstrated here.
 #[component]
 pub fn About() -> impl IntoView {
     let (name, setName) = create_signal(String::new());

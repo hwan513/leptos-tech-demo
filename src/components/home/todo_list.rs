@@ -1,6 +1,8 @@
 use leptos::{ev::MouseEvent, *};
 use stylance::import_style;
 
+// You can add scoped styles from an external css file using external crates (libraries)
+// This app is using the stylance crate https://crates.io/crates/stylance to import styles
 import_style!(todo_style, "todo_list.module.css");
 
 #[derive(Clone)]
@@ -10,7 +12,8 @@ struct Todo {
     is_complete: RwSignal<bool>,
 }
 
-/// Usage of using if/else for control flow is demonstrated here
+/// Todo list component that handles displaying the add todo and todo items
+/// Passing closures as props is also introduced in this section
 #[component]
 pub fn TodoList() -> impl IntoView {
     let initial_todos = vec![
@@ -34,6 +37,8 @@ pub fn TodoList() -> impl IntoView {
     let (todo_list, set_todo_list) = create_signal(initial_todos);
     let mut next_id = todo_list.get_untracked().len();
 
+    // Example of passing a callback as a prop. Both remove_todo and add_todo show the different
+    // ways you pass in closures (as callbacks) into componetns.
     let remove_todo = move |id| {
         set_todo_list.update(|todo_list| {
             todo_list.retain(|todo_item| {
@@ -57,8 +62,6 @@ pub fn TodoList() -> impl IntoView {
         next_id += 1;
     };
 
-    // let toggle_complete = set_todo_list.update(|todo|)
-
     view! {
         <section>
             <h2>"Todo List"</h2>
@@ -71,6 +74,9 @@ pub fn TodoList() -> impl IntoView {
     }
 }
 
+/// Renders a single todo item with a a checkbox, which is linked to the todo_items is_complete
+/// field. If a item is complete then the message "Done!" will show. It also contains a remove
+/// button that removes the item from the todo list.
 #[component]
 fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> impl IntoView {
     let message = move || {
@@ -86,6 +92,8 @@ fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> im
                 <input
                     type="checkbox"
                     checked=todo_item.is_complete
+                    // since Todo is passed in as a prop, and is_complete is a RwSignal, you can
+                    // directly mutate the variable here with a closure
                     on:change=move |_| {
                         todo_item.is_complete.update(|is_complete| *is_complete = !*is_complete);
                     }
@@ -94,11 +102,13 @@ fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> im
                 {todo_item.description}
                 {message}
             </label>
+            // the on_click function passed in as a callback is called here
             <button on:click=on_click>Remove</button>
         </div>
     }
 }
 
+/// Add todo form that handles adding a new todo to the todo list by calling the add_todo function.
 #[component]
 fn AddTodo<F>(mut add_todo: F) -> impl IntoView
 where

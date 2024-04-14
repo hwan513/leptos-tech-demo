@@ -1,5 +1,6 @@
 use leptos::*;
 
+/// LightBulb component, with an on:click event to toggle the light between on and off
 /// Usage of using if/else for control flow is demonstrated here
 #[component]
 pub fn LightBulb() -> impl IntoView {

@@ -60,6 +60,8 @@ impl CartContext {
     }
 }
 
+// braces required for the view macro to function correctly; this allow block stops compiler warnings
+#[allow(unused_braces)]
 #[component]
 pub fn PokeshopContextProvider(children: Children) -> impl IntoView {
     provide_context(CartContext::new());
