@@ -6,6 +6,7 @@ use crate::components::pokedex::PokedexList;
 
 import_style!(poke_style, "pokedex_layout.module.css");
 
+/// Pokedex layout, sets up the pokedex list side menu and the pokedex view
 #[component]
 pub fn PokedexLayout() -> impl IntoView {
     let value = use_context::<RwSignal<i32>>();

@@ -2,6 +2,7 @@ use leptos::*;
 
 use crate::components::pokeshop::*;
 
+/// Shop page containing a list of pokemons to purchase and a shopping cart
 #[component]
 pub fn Pokeshop() -> impl IntoView {
     let items = use_context::<Vec<Item>>().unwrap();

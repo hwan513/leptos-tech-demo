@@ -6,8 +6,10 @@ use crate::components::pokeshop::CartContext;
 
 import_style!(style, "product.module.css");
 
+/// Renders the product within the shop page
 #[component]
 pub fn Product(item: Item) -> impl IntoView {
+    // Context is used here to access the cart being defined elsewhere
     let CartContext(_, set_cart) = use_context::<CartContext>().unwrap();
     view! {
         <div class=style::product>

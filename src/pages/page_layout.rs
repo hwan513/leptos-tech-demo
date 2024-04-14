@@ -1,6 +1,7 @@
 use leptos::*;
 use leptos_router::*;
 
+/// This page sets up the navigation bar and wraps the content of the page with class container
 #[component]
 pub fn PageLayout() -> impl IntoView {
     view! {

@@ -8,6 +8,7 @@ use crate::components::pokeshop::{
 
 import_style!(style, "shopping_cart.module.css");
 
+/// Renders the shopping cart with items, total cost, and checkout button
 #[component]
 pub fn ShoppingCart() -> impl IntoView {
     view! {
@@ -19,8 +20,12 @@ pub fn ShoppingCart() -> impl IntoView {
     }
 }
 
+/// Renders only the cart items and total cost
 #[component]
 pub fn CartItems() -> impl IntoView {
+    // Clone is used here to allow the closure to take ownership of the items in the cart
+    // Another alternative would be to use the `store_value` function which is used in the
+    // `CartItem`
     let items = use_context::<Vec<Item>>().unwrap();
     let items_clone = items.clone();
     let cart = use_context::<CartContext>().unwrap().0;
@@ -42,12 +47,13 @@ pub fn CartItems() -> impl IntoView {
     }
 }
 
+/// Renders a single item in the cart
 #[component]
 fn CartItem<F>(count: F, item: Item) -> impl IntoView
 where
     F: Fn() -> usize + 'static,
 {
-    // Used as otherwise, either closure will take ownership of the count variable
+    // `store_value` is used as otherwise, either closure will take ownership of the count variable
     // Makes count copyable
     let count = store_value(count);
     view! {

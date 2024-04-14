@@ -1,6 +1,7 @@
 use leptos::*;
 use leptos_use::{storage::use_local_storage, utils::JsonCodec};
 
+/// An item in the pokeshop
 #[derive(Clone, Debug)]
 pub struct Item {
     pub id: usize,
@@ -9,6 +10,7 @@ pub struct Item {
     pub image: String,
 }
 
+/// The initial set of items in the pokeshop
 fn initial_products() -> Vec<Item> {
     vec![
         Item {
@@ -50,9 +52,11 @@ fn initial_products() -> Vec<Item> {
     ]
 }
 
+/// The context struct for the pokeshop
 #[derive(Clone, Copy, Debug)]
 pub struct CartContext(pub Signal<Vec<usize>>, pub WriteSignal<Vec<usize>>);
 
+/// The `new` impl allows for the use of a signal that writes to the local storage using `use_local_storage`.
 impl CartContext {
     pub fn new() -> Self {
         let (state, set_state, _) = use_local_storage::<Vec<usize>, JsonCodec>("shopping-cart");
@@ -62,6 +66,8 @@ impl CartContext {
 
 // braces required for the view macro to function correctly; this allow block stops compiler warnings
 #[allow(unused_braces)]
+/// A context provider for the pokeshop, wraps the children and provides context that can be called
+/// with `use_context::<ContextStruct>()`
 #[component]
 pub fn PokeshopContextProvider(children: Children) -> impl IntoView {
     provide_context(CartContext::new());

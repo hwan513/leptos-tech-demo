@@ -4,11 +4,13 @@ use leptos_router::*;
 use serde::Deserialize;
 use stylance::import_style;
 
+/// Params for `PokedexDetails` to use with `use_params`
 #[derive(Params, PartialEq)]
 struct PokedexParams {
     id: usize,
 }
 
+/// Struct used to deserialize api json response
 #[derive(Clone, Deserialize)]
 struct PokemonDetails {
     name: String,
@@ -16,6 +18,7 @@ struct PokemonDetails {
     flavor_text_entries: Vec<FlavorTexts>,
 }
 
+/// Nested struct used to deserialize json api response
 #[derive(Clone, Deserialize)]
 struct FlavorTexts {
     flavor_text: String,
@@ -23,6 +26,7 @@ struct FlavorTexts {
 
 import_style!(styles, "pokedex_details.module.css");
 
+/// Fetches pokemon details from api based on id
 async fn fetch_pokemon_details(id: usize) -> Result<PokemonDetails> {
     let res = Request::get(&format!("https://pokeapi.co/api/v2/pokemon-species/{id}"))
         .send()
@@ -32,6 +36,8 @@ async fn fetch_pokemon_details(id: usize) -> Result<PokemonDetails> {
     Ok(res)
 }
 
+/// Fetches pokemon details from api based on id and then selects which component to render based
+/// on result
 #[component]
 pub fn PokedexDetails() -> impl IntoView {
     let params = use_params::<PokedexParams>();
@@ -55,6 +61,7 @@ pub fn PokedexDetails() -> impl IntoView {
     }
 }
 
+/// View for pokemon details page with pokemon image and description
 #[component]
 fn PokemonPage(pokemon: PokemonDetails) -> impl IntoView {
     // Sanitise string as  api returns strings with the form control character
@@ -74,6 +81,7 @@ fn PokemonPage(pokemon: PokemonDetails) -> impl IntoView {
     }
 }
 
+/// View for when the api response returns an error
 #[component]
 fn PokemonNotFound(id: usize) -> impl IntoView {
     view! {
@@ -83,6 +91,8 @@ fn PokemonNotFound(id: usize) -> impl IntoView {
     }
 }
 
+/// View for when the api response is still loading, this is called less often as the
+/// `<Suspense/>` component is not being used
 #[component]
 fn PokemonLoading() -> impl IntoView {
     view! {
@@ -92,6 +102,7 @@ fn PokemonLoading() -> impl IntoView {
     }
 }
 
+/// View for the placeholder image
 #[component]
 fn PlaceholderImage() -> impl IntoView {
     view! { <img class=styles::placeholder_image src="/images/white-pokeball.png"/> }

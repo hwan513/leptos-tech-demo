@@ -2,6 +2,7 @@ use leptos::*;
 
 use crate::components::pokeshop::{CartContext, CartItems};
 
+/// Checkout page for the pokeshop. It will clear the cart on purchase
 #[component]
 pub fn Checkout() -> impl IntoView {
     let CartContext(cart, set_cart) = use_context::<CartContext>().unwrap();
