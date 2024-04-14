@@ -121,7 +121,7 @@ See[`crate::components::home::todo_list::TodoList()`](./src/components/home/todo
 [`todo_list.module.css`](./src/components/home/todo_list.module.css) and [`index.html`](./index.html)
 
 Routing; nested routes; navigation\
-See[`crate::PgaeRoutes()`](./src/lib.rs).
+See[`crate::PageRoutes()`](./src/lib.rs).
 
 Page layouts; `<A/>`; Outlet\
 See [`crate::pages::page_layout::PageLayout()`](./src/pages/page_layout.rs).
@@ -133,4 +133,4 @@ Context API, local storage\
 See [`crate::components::pokeshop::pokeshop_context::*`](./src/components/pokeshop/pokeshop_context.rs)
 
 Providing and consuming context\
-See [`crate::pages::pokeshop_layout::PokeshopLayout()`](./src/pages/pokeshop_layout.rs) and [crate::pages::checkout::Checkout()](./src/pages/checkout.rs)
+See [`crate::pages::pokeshop_layout::PokeshopLayout()`](./src/pages/pokeshop_layout.rs) and [`crate::pages::checkout::Checkout()`](./src/pages/checkout.rs)
