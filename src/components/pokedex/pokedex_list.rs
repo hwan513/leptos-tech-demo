@@ -6,22 +6,26 @@ use stylance::import_style;
 
 import_style!(poke_style, "pokedex_list.module.css");
 
+/// Return type for the pokemon species endpoint
 #[derive(Deserialize)]
 pub struct PokemonsJson {
     pub results: Vec<PokemonJson>,
 }
 
+/// Nested return type for the pokemon endpoint
 #[derive(Deserialize)]
 pub struct PokemonJson {
     pub name: String,
 }
 
+/// Struct used for props passing for `PokedexItem`
 #[derive(Clone)]
 pub struct Pokemon {
     pub id: usize,
     pub name: String,
 }
 
+/// Fetch list of pokemon species from the API and parse the returned data into Vec<Pokemon>
 async fn fetch_pokemon_species((offset, limit): (usize, usize)) -> Result<Vec<Pokemon>> {
     let res = Request::get(&format!("https://pokeapi.co/api/v2/pokemon-species?offset={offset}&limit={limit}"))
         .send()
@@ -40,7 +44,10 @@ pub fn PokedexList() -> impl IntoView {
     // offset is used to generate IDs for each pokemon in the list, which the API does not return
     let (offset, set_offset) = create_signal(0);
     let limit = 14;
+    // use create_local_resource to fetch pokemon. This wraps the fetch call and provides helper
+    // functions to tell if an async resource is loading / loaded / error
     let pokemons = create_local_resource(move || (offset.get(), limit), fetch_pokemon_species);
+    // and_then function will allow the list to display nothing until the resource is loaded
     let pokemon_list = move || {
         pokemons.and_then(|pokemons| {
             pokemons
@@ -56,6 +63,7 @@ pub fn PokedexList() -> impl IntoView {
         <aside class=poke_style::list>
             // Very rough pagination. I'm being very lazy here.
             {pokemon_list} <div class=poke_style::buttons>
+                // previous and next buttons
                 <button
                     disabled=move || offset() == 0
                     on:click=move |_| set_offset.update(|num| *num = (*num - limit).max(0))
@@ -70,6 +78,7 @@ pub fn PokedexList() -> impl IntoView {
     }
 }
 
+/// View for an item in the list
 #[component]
 fn PokedexItem(pokemon: Pokemon) -> impl IntoView {
     view! {
