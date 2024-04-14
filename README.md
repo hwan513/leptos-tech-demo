@@ -26,7 +26,11 @@ There are two common editors to use for Rust:
 
 To get the project running you will need to install the Rust toolchain. The recommended way is to install [`rustup`](https://rustup.rs), which functions as a version manager for the toolchain, similar to the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm). Follow the instructions [here](https://rustup.rs) or see [other installation methods](https://rust-lang.github.io/rustup/installation/other.html#using-a-package-manager) to install rustup.
 
-Once `rustup` is installed, you will want to use `nightly` Rust to use all the features and syntax shown in this demo. When creating Leptos project you might have to manually set the toolchain to nightly instead of stable, but for this demo, it is handled with the [`rust-toolchain.toml`](./rust-toolchain.toml) file.
+Once `rustup` is installed, you will want to use `nightly` Rust to use all the features and syntax shown in this demo. When creating Leptos project you might have to manually set the toolchain to nightly instead of stable, but for this demo, it is handled with the [`rust-toolchain.toml`](./rust-toolchain.toml) file\dots
+
+!> [!NOTE]
+
+> If rustup doesn't work then you might need to restart your shell instance
 
 ```sh
 rustup toolchain install nightly
@@ -63,7 +67,7 @@ Unfortunately, Trunk falls short of Vite on the dev server side, due to the natu
 
 ### Running for development
 
-To open the app in your default browser at `http://localhost:3000`, run:
+To open the app in your default browser at `http://localhost:3000`, make sure that you are in the correct directory and run:
 
 ```sh
 trunk serve --port 3000 --open
