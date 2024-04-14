@@ -102,3 +102,35 @@ cd {{project-name}}
 ```
 
 # Concepts Covered
+
+Basic Syntax (rstml instead of jsx); `view!{}` macro instead of returning `jsx`; on:event syntax; `#[component]`\
+See [`crate::components::home::about::About()`](./src/components/home/about.rs) the different syntax in use
+
+Passing props into components; required / optional props with `#[prop(optional)]`\
+See [`crate::components::home::about::AboutMe()`](./src/components/home/about.rs).
+
+Data primitives: signals instead of states; updating signals; using closures with signals\
+See [`crate::components::home::light_bulb::LightBulb()`](./src/components/home/light_bulb.rs)
+
+Iteration: `<For/>` dynamic lists; `collect_view()` static lists\
+See [`crate::components::home::light_bulb::LightBulb()`](./src/components/home/light_bulb.rs) and
+[`crate::components::pokedex::pokedex_list::PokedexList()`](./src/components/pokedex/pokedex_list.rs) respectively.
+
+Stylance: scoped css and normal css\
+See[`crate::components::home::todo_list::TodoList()`](./src/components/home/todo_list.rs) and
+[`todo_list.module.css`](./src/components/home/todo_list.module.css) and [`index.html`](./index.html)
+
+Routing; nested routes; navigation\
+See[`crate::PgaeRoutes()`](./src/lib.rs).
+
+Page layouts; `<A/>`; Outlet\
+See [`crate::pages::page_layout::PageLayout()`](./src/pages/page_layout.rs).
+
+API fetching with gloo-net and parsing with Serde; create_local_resource; use_params\
+See [`crate::pages::pokedex_details::*`](./src/pages/pokedex_details.rs)
+
+Context API, local storage\
+See [`crate::components::pokeshop::pokeshop_context::*`](./src/components/pokeshop/pokeshop_context.rs)
+
+Providing and consuming context\
+See [`crate::pages::pokeshop_layout::PokeshopLayout()`](./src/pages/pokeshop_layout.rs) and [crate::pages::checkout::Checkout()](./src/pages/checkout.rs)
