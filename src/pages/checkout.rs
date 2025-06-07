@@ -1,4 +1,4 @@
-use leptos::*;
+use leptos::prelude::*;
 
 use crate::components::pokeshop::{CartContext, CartItems};
 
@@ -14,15 +14,15 @@ pub fn Checkout() -> impl IntoView {
                     <h4>"Cart is empty"</h4>
                     <a href="/pokeshop">"Back"</a>
                 }
-                    .into_view()
+                    .into_any()
             } else {
                 view! {
-                    <CartItems/>
+                    <CartItems />
                     <a href="/pokeshop" on:click=move |_| set_cart.update(std::vec::Vec::clear)>
                         "Checkout"
                     </a>
                 }
-                    .into_view()
+                    .into_any()
             }}
 
         </main>

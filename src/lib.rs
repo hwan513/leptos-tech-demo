@@ -1,57 +1,55 @@
-use leptos::*;
-use leptos_meta::*;
-use leptos_router::*;
+use leptos::prelude::*;
+use leptos_meta::{provide_meta_context, Html, Meta, Title};
+use leptos_router::components::{ParentRoute, Route, Router, Routes};
+use leptos_router::{hooks::use_navigate, path, NavigateOptions};
 
 mod components;
 mod pages;
 
-use crate::pages::*;
+use crate::pages::{
+    Checkout, Home, NotFound, PageLayout, PokedexDetails, PokedexLayout, Pokeshop, PokeshopLayout,
+};
 
 /// The application component
+#[allow(clippy::must_use_candidate)]
 #[component]
 pub fn App() -> impl IntoView {
     provide_meta_context();
-    view! {
-        <Html lang="en" dir="ltr" attr:data-theme="light"/>
-        // sets the document title
-        <Title text="Leptos Demo"/>
-        <Meta charset="UTF-8"/>
-        <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-        <Router>
-            <PageRoutes/>
-        </Router>
-    }
-}
-
-#[component(transparent)]
-fn PageRoutes() -> impl IntoView {
-    // Only way to reuse the replace due to rust borrow checker
     let nav_replace = NavigateOptions {
         replace: true,
+        resolve: true,
         ..Default::default()
     };
     let nav_replace_clone = nav_replace.clone();
-
     view! {
-        <Routes>
-            <Route path="/" view=PageLayout>
-                <Route path="" view=move || use_navigate()("home", nav_replace.clone())/>
-                <Route path="home" view=Home/>
-                <Route path="pokedex" view=PokedexLayout>
+        <Html {..} lang="en" dir="ltr" attr:data-theme="light" />
+        // sets the document title
+        <Title text="Leptos Demo" />
+        <Meta charset="UTF-8" />
+        <Meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <Router>
+            <Routes fallback=|| "Not found.">
+                <ParentRoute path=path!("/") view=PageLayout>
                     <Route
-                        path=""
-                        view=move || use_navigate()("pokedex/1", nav_replace_clone.clone())
+                        path=path!("")
+                        view=move || use_navigate()("home", nav_replace.clone())
                     />
+                    <Route path=path!("home") view=Home />
+                    <ParentRoute path=path!("pokedex") view=PokedexLayout>
+                        <Route
+                            path=path!("")
+                            view=move || use_navigate()("1", nav_replace_clone.clone())
+                        />
 
-                    <Route path=":id" view=PokedexDetails/>
-                </Route>
-                <Route path="pokeshop" view=PokeshopLayout>
-                    <Route path="" view=Pokeshop/>
-                    <Route path="checkout" view=Checkout/>
-                </Route>
-                <Route path="*" view=NotFound/>
-            </Route>
-        </Routes>
+                        <Route path=path!(":id") view=PokedexDetails />
+                    </ParentRoute>
+                    <ParentRoute path=path!("pokeshop") view=PokeshopLayout>
+                        <Route path=path!("") view=Pokeshop />
+                        <Route path=path!("checkout") view=Checkout />
+                    </ParentRoute>
+                    <Route path=path!("*") view=NotFound />
+                </ParentRoute>
+            </Routes>
+        </Router>
     }
 }

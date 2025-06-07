@@ -1,5 +1,5 @@
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
+use leptos_router::components::Outlet;
 use stylance::import_style;
 
 use crate::components::pokedex::PokedexList;
@@ -14,9 +14,9 @@ pub fn PokedexLayout() -> impl IntoView {
         <h1>"Pokedex"</h1>
         <p>{value}</p>
         <div class=poke_style::dex_container>
-            <PokedexList/>
+            <PokedexList />
             <main class=poke_style::dex_view>
-                <Outlet/>
+                <Outlet />
             </main>
         </div>
     }

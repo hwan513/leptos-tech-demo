@@ -1,4 +1,4 @@
-use leptos::*;
+use leptos::prelude::*;
 
 /// Component to show all the features of leptos that has been explored
 #[component]
@@ -19,7 +19,7 @@ pub fn Introduction() -> impl IntoView {
                 // signal vs state paradigm, create_effect and create_ref also exist
                 <li>
                     "Data primitives: " <code>"[state, setState] = useState"</code> "⇒ "
-                    <code>"(signal, set_signal) = create_signal()"</code>
+                    <code>"(signal, set_signal) = signal()"</code>
                 </li>
                 <li>
                     "Accessing and modifying data primitives with: "

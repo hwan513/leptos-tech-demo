@@ -1,5 +1,5 @@
-use leptos::*;
-use leptos_router::use_location;
+use leptos::prelude::*;
+use leptos_router::hooks::use_location;
 
 /// This page gets called if the user tries to access a page that does not exist
 #[component]

@@ -1,5 +1,5 @@
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
+use leptos_router::components::A;
 use stylance::import_style;
 
 use crate::components::pokeshop::{
@@ -14,7 +14,7 @@ pub fn ShoppingCart() -> impl IntoView {
     view! {
         <div class=style::cart>
             <h3>"Shopping Cart"</h3>
-            <CartItems/>
+            <CartItems />
             <A href="checkout">"Checkout"</A>
         </div>
     }
@@ -30,8 +30,12 @@ pub fn CartItems() -> impl IntoView {
     let items_clone = items.clone();
     let cart = use_context::<CartContext>().unwrap().0;
     let groups = move || group_index(cart.get());
-    let total_cost =
-        move || calculate_cost(cart.get(), items.iter().map(|item| item.cost).collect());
+    let total_cost = move || {
+        calculate_cost(
+            cart.get(),
+            &items.iter().map(|item| item.cost).collect::<Vec<usize>>(),
+        )
+    };
 
     view! {
         <div class=style::cart_container>
@@ -39,7 +43,7 @@ pub fn CartItems() -> impl IntoView {
                 .iter()
                 .enumerate()
                 .map(|(index, item)| {
-                    view! { <CartItem count=move || groups()[index] item=item.clone()/> }
+                    view! { <CartItem count=move || groups()[index] item=item.clone() /> }
                 })
                 .collect_view()}
         </div>
@@ -51,17 +55,16 @@ pub fn CartItems() -> impl IntoView {
 #[component]
 fn CartItem<F>(count: F, item: Item) -> impl IntoView
 where
-    F: Fn() -> usize + 'static,
+    F: Fn() -> usize + 'static + Send + Sync,
 {
-    // `store_value` is used as otherwise, either closure will take ownership of the count variable
-    // Makes count copyable
-    let count = store_value(count);
+    // Stores the input prop as a reactive value
+    let count = StoredValue::new(count);
     view! {
-        <Show when=move || { count.with_value(|count| count()) > 0 } fallback=|| view! {}>
+        <Show when=move || { count.with_value(|count| count()) > 0 } fallback=|| "">
             <div class=style::cart_item>
-                <img src=&item.image/>
+                <img src=item.image.clone() />
                 <span>
-                    <strong>{&item.name}</strong>
+                    <strong>{item.name.clone()}</strong>
                 </span>
                 <span>"× " {count.with_value(|count| count())}</span>
             </div>

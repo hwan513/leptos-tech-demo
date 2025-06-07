@@ -1,5 +1,5 @@
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
+use leptos_router::components::{Outlet, A};
 
 /// This page sets up the navigation bar and wraps the content of the page with class container
 #[component]
@@ -11,7 +11,7 @@ pub fn PageLayout() -> impl IntoView {
             <A href="/pokeshop">"Pokeshop"</A>
         </nav>
         <div class="container">
-            <Outlet/>
+            <Outlet />
         </div>
     }
 }

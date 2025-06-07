@@ -1,5 +1,5 @@
-use leptos::*;
-use leptos_use::{storage::use_local_storage, utils::JsonCodec};
+use leptos::{prelude::*, server::codee::string::JsonSerdeCodec};
+use leptos_use::storage::use_local_storage;
 
 /// An item in the pokeshop
 #[derive(Clone, Debug)]
@@ -59,7 +59,8 @@ pub struct CartContext(pub Signal<Vec<usize>>, pub WriteSignal<Vec<usize>>);
 /// The `new` impl allows for the use of a signal that writes to the local storage using `use_local_storage`.
 impl CartContext {
     pub fn new() -> Self {
-        let (state, set_state, _) = use_local_storage::<Vec<usize>, JsonCodec>("shopping-cart");
+        let (state, set_state, _) =
+            use_local_storage::<Vec<usize>, JsonSerdeCodec>("shopping-cart");
         Self(state, set_state)
     }
 }

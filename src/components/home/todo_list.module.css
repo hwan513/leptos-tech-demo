@@ -16,6 +16,12 @@
   border-radius: var(--radius-2);
 }
 
+.todo label {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+}
+
 .todo:has(input:checked) {
   text-decoration: line-through;
 }
@@ -28,6 +34,6 @@
   gap: var(--size-2);
 }
 
-.todo_form>input {
+.todo_form > input {
   flex-grow: 1;
 }

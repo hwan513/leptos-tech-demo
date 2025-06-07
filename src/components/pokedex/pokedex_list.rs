@@ -1,7 +1,7 @@
+use core::result::Result;
 use gloo_net::http::Request;
+use leptos::prelude::*;
 use serde::Deserialize;
-use leptos::{error::Result, *};
-use leptos_router::*;
 use stylance::import_style;
 
 import_style!(poke_style, "pokedex_list.module.css");
@@ -26,34 +26,40 @@ pub struct Pokemon {
 }
 
 /// Fetch list of pokemon species from the API and parse the returned data into Vec<Pokemon>
-async fn fetch_pokemon_species((offset, limit): (usize, usize)) -> Result<Vec<Pokemon>> {
-    let res = Request::get(&format!("https://pokeapi.co/api/v2/pokemon-species?offset={offset}&limit={limit}"))
-        .send()
-        .await?
-        .json::<PokemonsJson>()
-        .await?.results.into_iter().enumerate().map(|(id,pokemon)| Pokemon {
-            name: pokemon.name,
-            id: id + offset + 1,
-        })
-        .collect();
+async fn fetch_pokemon_species((offset, limit): (usize, usize)) -> Result<Vec<Pokemon>, Error> {
+    let res = Request::get(&format!(
+        "https://pokeapi.co/api/v2/pokemon-species?offset={offset}&limit={limit}"
+    ))
+    .send()
+    .await?
+    .json::<PokemonsJson>()
+    .await?
+    .results
+    .into_iter()
+    .enumerate()
+    .map(|(id, pokemon)| Pokemon {
+        name: pokemon.name,
+        id: id + offset + 1,
+    })
+    .collect();
     Ok(res)
 }
 
 #[component]
 pub fn PokedexList() -> impl IntoView {
-    // offset is used to generate IDs for each pokemon in the list, which the API does not return
-    let (offset, set_offset) = create_signal(0);
+    // Offset is used to generate IDs for each Pokémon in the list, which the API does not return
+    let (offset, set_offset) = signal(0);
     let limit = 14;
-    // use create_local_resource to fetch pokemon. This wraps the fetch call and provides helper
+    // Use create_local_resource to fetch Pokémon. This wraps the fetch call and provides helper
     // functions to tell if an async resource is loading / loaded / error
-    let pokemons = create_local_resource(move || (offset.get(), limit), fetch_pokemon_species);
-    // and_then function will allow the list to display nothing until the resource is loaded
+    let pokemons = LocalResource::new(move || fetch_pokemon_species((offset.get(), limit)));
+    // `and_then` function will allow the list to display nothing until the resource is loaded
     let pokemon_list = move || {
         pokemons.and_then(|pokemons| {
             pokemons
                 .iter()
                 .map(|pokemon| {
-                    view! { <PokedexItem pokemon=pokemon.clone()/> }
+                    view! { <PokedexItem pokemon=pokemon.clone() /> }
                 })
                 .collect_view()
         })
@@ -82,10 +88,9 @@ pub fn PokedexList() -> impl IntoView {
 #[component]
 fn PokedexItem(pokemon: Pokemon) -> impl IntoView {
     view! {
-        <A href=pokemon.id.to_string() class=poke_style::list_item>
-            <img src="/images/pokeball.png"/>
+        <a href=pokemon.id.to_string() class=poke_style::list_item>
+            <img src="/images/pokeball.png" />
             <span>{pokemon.name}</span>
-        </A>
+        </a>
     }
 }
-

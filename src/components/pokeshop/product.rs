@@ -1,4 +1,4 @@
-use leptos::*;
+use leptos::prelude::*;
 use stylance::import_style;
 
 use super::pokeshop_context::Item;
@@ -13,7 +13,7 @@ pub fn Product(item: Item) -> impl IntoView {
     let CartContext(_, set_cart) = use_context::<CartContext>().unwrap();
     view! {
         <div class=style::product>
-            <img src=item.image/>
+            <img src=item.image />
             <div>
                 <h3>{item.name}</h3>
                 <p>"Cost:" {item.cost}</p>

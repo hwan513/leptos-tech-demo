@@ -1,4 +1,5 @@
-use leptos::{ev::MouseEvent, *};
+use leptos::ev::MouseEvent;
+use leptos::prelude::*;
 use stylance::import_style;
 
 // You can add scoped styles from an external css file using external crates (libraries)
@@ -12,7 +13,7 @@ struct Todo {
     is_complete: RwSignal<bool>,
 }
 
-/// Todo list component that handles displaying the add todo and todo items
+/// Todo list component that handles displaying the add todo and to-do items
 /// Passing closures as props is also introduced in this section
 #[component]
 pub fn TodoList() -> impl IntoView {
@@ -20,29 +21,29 @@ pub fn TodoList() -> impl IntoView {
         Todo {
             id: 0,
             description: "Finish lecture".to_string(),
-            is_complete: create_rw_signal(true),
+            is_complete: RwSignal::new(true),
         },
         Todo {
             id: 1,
             description: "Do homework".to_string(),
-            is_complete: create_rw_signal(false),
+            is_complete: RwSignal::new(false),
         },
         Todo {
             id: 2,
             description: "Sleep".to_string(),
-            is_complete: create_rw_signal(true),
+            is_complete: RwSignal::new(true),
         },
     ];
 
-    let (todo_list, set_todo_list) = create_signal(initial_todos);
+    let (todo_list, set_todo_list) = signal(initial_todos);
     let mut next_id = todo_list.get_untracked().len();
 
     // Example of passing a callback as a prop. Both remove_todo and add_todo show the different
-    // ways you pass in closures (as callbacks) into componetns.
-    let remove_todo = move |id| {
+    // ways you pass in closures (as callbacks) into components.
+    let remove_todo = move |id: usize| {
         set_todo_list.update(|todo_list| {
             todo_list.retain(|todo_item| {
-                // manually destroy signal to prevent memory leaks
+                // Manually destroy signal to prevent memory leaks
                 if todo_item.id == id {
                     todo_item.is_complete.dispose();
                 }
@@ -56,7 +57,7 @@ pub fn TodoList() -> impl IntoView {
             todo_list.push(Todo {
                 id: next_id,
                 description,
-                is_complete: create_rw_signal(false),
+                is_complete: RwSignal::new(false),
             });
         });
         next_id += 1;
@@ -65,20 +66,23 @@ pub fn TodoList() -> impl IntoView {
     view! {
         <section>
             <h2>"Todo List"</h2>
-            <For each=todo_list key=|todo_item| todo_item.id let:todo_item>
-                <TodoItem todo_item=todo_item.clone() on_click=move |_| remove_todo(todo_item.id)/>
+            <For each=move || todo_list.get() key=|todo_item| todo_item.id let:todo_item>
+                <TodoItem
+                    todo_item=todo_item.clone()
+                    on_click=move |_| { remove_todo(todo_item.id) }
+                />
             </For>
-            <AddTodo add_todo=add_todo/>
+            <AddTodo add_todo=add_todo />
 
         </section>
     }
 }
 
-/// Renders a single todo item with a a checkbox, which is linked to the todo_items is_complete
-/// field. If a item is complete then the message "Done!" will show. It also contains a remove
+/// Renders a single todo item with a checkbox, which is linked to the todo_items is_complete
+/// field. If an item is complete then the message "Done!" will show. It also contains a remove
 /// button that removes the item from the todo list.
 #[component]
-fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> impl IntoView {
+fn TodoItem(todo_item: Todo, on_click: impl FnMut(MouseEvent) + 'static) -> impl IntoView {
     let message = move || {
         if todo_item.is_complete.get() {
             Some(" (Done!)")
@@ -92,13 +96,12 @@ fn TodoItem(todo_item: Todo, #[prop(into)] on_click: Callback<MouseEvent>) -> im
                 <input
                     type="checkbox"
                     checked=todo_item.is_complete
-                    // since Todo is passed in as a prop, and is_complete is a RwSignal, you can
+                    // Since Todo is passed in as a prop, and is_complete is a RwSignal, you can
                     // directly mutate the variable here with a closure
                     on:change=move |_| {
                         todo_item.is_complete.update(|is_complete| *is_complete = !*is_complete);
                     }
                 />
-
                 {todo_item.description}
                 {message}
             </label>
@@ -114,12 +117,12 @@ fn AddTodo<F>(mut add_todo: F) -> impl IntoView
 where
     F: FnMut(String) + 'static,
 {
-    let description = create_node_ref();
+    let description = NodeRef::new();
     view! {
         <h3>"Add Todo"</h3>
         <form class=todo_style::todo_form>
             <label for="todoDescription">"Description"</label>
-            <input id="todoDescription" type="text" node_ref=description/>
+            <input id="todoDescription" type="text" node_ref=description />
             <input
                 type="submit"
                 on:click=move |ev| {

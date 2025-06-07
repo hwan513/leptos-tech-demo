@@ -1,5 +1,5 @@
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
+use leptos_router::components::Outlet;
 
 use crate::components::pokeshop::PokeshopContextProvider;
 
@@ -8,7 +8,7 @@ use crate::components::pokeshop::PokeshopContextProvider;
 pub fn PokeshopLayout() -> impl IntoView {
     view! {
         <PokeshopContextProvider>
-            <Outlet/>
+            <Outlet />
         </PokeshopContextProvider>
     }
 }
