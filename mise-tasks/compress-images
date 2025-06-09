@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #MISE description="Compress all png images in public/ to WebP, AVIF, and JPEG XL"
 #MISE sources=["src/**/*", "Cargo.lock"]
 #MISE outputs={auto=true}

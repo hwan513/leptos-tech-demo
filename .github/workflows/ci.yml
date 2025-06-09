@@ -20,13 +20,14 @@ env:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
       - uses: jdx/mise-action@v2
-
-      - name: Install tools
-        run: mise install
+        with:
+          experimental: true
+          log_level: debug
 
       - name: Cache rust toolchain paths
         uses: actions/cache@v4
@@ -42,11 +43,14 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/rust-toolchain.toml', '**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-
 
+      - name: Update rustup toolchain
+        run: rustup component add rustfmt clippy
+
       - name: Check formatting
         run: mise run format
 
       - name: Check linting
         run: mise run lint
 
-      - name: Build in release mode
-        run: mise run builld:release
+      - name: Build application in debug mode (for speed)
+        run: mise run build

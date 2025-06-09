@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 
-use crate::components::pokeshop::{Item, ShoppingCart, Product};
+use crate::components::pokeshop::{Item, Product, ShoppingCart};
 
 /// Shop page containing a list of pokemons to purchase and a shopping cart
 #[component]

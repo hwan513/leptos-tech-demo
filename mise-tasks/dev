@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #MISE description="Serve the application and watch for changes"
 #MISE sources=["src/**/*", "Cargo.lock"]
 #MISE outputs={auto=true}

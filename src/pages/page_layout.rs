@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use leptos_router::components::{Outlet, A};
+use leptos_router::components::{A, Outlet};
 
 /// This page sets up the navigation bar and wraps the content of the page with class container
 #[component]

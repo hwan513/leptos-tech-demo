@@ -3,7 +3,7 @@ use leptos_router::components::A;
 use stylance::import_style;
 
 use crate::components::pokeshop::{
-    calculate_cost::calculate_cost, group_index::group_index, CartContext, Item,
+    CartContext, Item, calculate_cost::calculate_cost, group_index::group_index,
 };
 
 import_style!(style, "shopping_cart.module.css");

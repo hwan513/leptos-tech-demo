@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #MISE description="Check formatting in rust files"
 #MISE sources=["src/**/*.rs"]
 #MISE outputs={auto=true}

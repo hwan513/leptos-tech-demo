@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #MISE description="Reproducibly build the portfolio application with optimizations"
 #MISE sources=["src/**/*", "Cargo.lock"]
 #MISE outputs={auto=true}
