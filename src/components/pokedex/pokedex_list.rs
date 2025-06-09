@@ -1,10 +1,20 @@
 use core::result::Result;
 use gloo_net::http::Request;
 use leptos::prelude::*;
+use leptos_router::{
+    hooks::{use_navigate, use_query},
+    params::Params,
+    NavigateOptions,
+};
 use serde::Deserialize;
 use stylance::import_style;
 
 import_style!(poke_style, "pokedex_list.module.css");
+
+#[derive(Params, PartialEq)]
+struct OffsetNumber {
+    offset: Option<usize>,
+}
 
 /// Return type for the pokemon species endpoint
 #[derive(Deserialize)]
@@ -48,11 +58,28 @@ async fn fetch_pokemon_species((offset, limit): (usize, usize)) -> Result<Vec<Po
 #[component]
 pub fn PokedexList() -> impl IntoView {
     // Offset is used to generate IDs for each Pokémon in the list, which the API does not return
-    let (offset, set_offset) = signal(0);
+    let query = use_query::<OffsetNumber>();
+    // This is the most cursed piece of code in existence
+    let navigate_prev = use_navigate();
+    let navigate_next = use_navigate();
+    let nav_options = NavigateOptions {
+        replace: true,
+        resolve: true,
+        ..Default::default()
+    };
+    let nav_options_clone = nav_options.clone();
+    let offset = move || {
+        query
+            .read()
+            .as_ref()
+            .ok()
+            .and_then(|q| q.offset)
+            .unwrap_or_default()
+    };
     let limit = 14;
     // Use create_local_resource to fetch Pokémon. This wraps the fetch call and provides helper
     // functions to tell if an async resource is loading / loaded / error
-    let pokemons = LocalResource::new(move || fetch_pokemon_species((offset.get(), limit)));
+    let pokemons = LocalResource::new(move || fetch_pokemon_species((offset(), limit)));
     // `and_then` function will allow the list to display nothing until the resource is loaded
     let pokemon_list = move || {
         pokemons.and_then(|pokemons| {
@@ -81,13 +108,17 @@ pub fn PokedexList() -> impl IntoView {
                     // previous and next buttons
                     <button
                         disabled=move || offset() == 0
-                        on:click=move |_| set_offset.update(|num| *num = (*num - limit).max(0))
+                        on:click=move |_| navigate_prev(
+                            &format!("?offset={}", (offset() - limit).min(0)),
+                            nav_options.clone(),
+                        )
                     >
                         previous
                     </button>
-                    <button on:click=move |_| {
-                        set_offset.update(|num| *num += limit);
-                    }>next</button>
+                    <button on:click=move |_| navigate_next(
+                        &format!("?offset={}", offset() + limit),
+                        nav_options_clone.clone(),
+                    )>next</button>
                 </div>
             </Suspense>
         </aside>
