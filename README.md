@@ -1,3 +1,14 @@
+# Introduction
+
+> [!NOTE]
+> This demo was originally created for the CS732/SOFTENG750 course at UoA to demonstrate the particular features of Leptos CSR
+> in context of the taught content of the course (being React frontend). As such, much of the demo code here matches
+> examples given in class, however the very simple pokedex implementation makes use of the public
+> [Pokémon Api](https://pokeapi.co) instead of a dummy express server. Since the assignment, I have updated the leptos
+> version from 0.6 to 0.8 (a real behemoth of a task, due to how cursed working with a non-stable rust frontend is).
+> I have also used the tool [mise](https://mise.jdx.dev) to ensure the a consistent dev experience. Below contains my
+> original Readme write required for the contents of the assignment.
+
 # Leptos Tech Demo
 
 This tech demo will go over the basics of development using Leptos, a full stack Rust framework.
@@ -121,7 +132,7 @@ See[`crate::components::home::todo_list::TodoList()`](./src/components/home/todo
 [`todo_list.module.css`](./src/components/home/todo_list.module.css) and [`index.html`](./index.html)
 
 Routing; nested routes; navigation\
-See[`crate::PageRoutes()`](./src/lib.rs).
+See[`crate::App()`](./src/lib.rs).
 
 Page layouts; `<A/>`; Outlet\
 See [`crate::pages::page_layout::PageLayout()`](./src/pages/page_layout.rs).
