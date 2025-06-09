@@ -1,10 +1,9 @@
 use core::result::Result;
-use leptos_router::params::Params;
-
 use gloo_net::http::Request;
 use leptos::prelude::*;
 use leptos::Params;
 use leptos_router::hooks::use_params;
+use leptos_router::params::Params;
 use serde::Deserialize;
 use stylance::import_style;
 
@@ -49,17 +48,20 @@ pub fn PokedexDetails() -> impl IntoView {
 
     let pokemon = LocalResource::new(move || fetch_pokemon_details(id()));
 
-    // Suspense fallback can be added if you want to see a loading screen between clicks
     view! {
-        {move || match pokemon.get() {
-            None => view! { <PokemonLoading /> }.into_any(),
-            Some(result) => {
-                match result {
-                    Ok(pokemon) => view! { <PokemonPage pokemon=pokemon /> }.into_any(),
-                    Err(_) => view! { <PokemonNotFound id=id() /> }.into_any(),
+        <Suspense fallback=move || {
+            view! { <PokemonLoading /> }.into_any()
+        }>
+            {move || match pokemon.get() {
+                None => view! { <PokemonLoading /> }.into_any(),
+                Some(result) => {
+                    match result {
+                        Ok(pokemon) => view! { <PokemonPage pokemon=pokemon /> }.into_any(),
+                        Err(_) => view! { <PokemonNotFound id=id() /> }.into_any(),
+                    }
                 }
-            }
-        }}
+            }}
+        </Suspense>
     }
 }
 
@@ -68,6 +70,8 @@ pub fn PokedexDetails() -> impl IntoView {
 fn PokemonPage(pokemon: PokemonDetails) -> impl IntoView {
     // Sanitise string as API returns strings with the form control character
     // Strings might not be in English since I can't be bothered switching filtering by English
+    let (is_img_loading, set_is_img_loading) = signal(true);
+    let (img_style, set_img_style) = signal(String::from("display:none"));
     let description = pokemon
         .flavor_text_entries
         .first()
@@ -83,7 +87,15 @@ fn PokemonPage(pokemon: PokemonDetails) -> impl IntoView {
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/{}.png",
                 pokemon.id,
             )
+            style=img_style
+            on:load=move |_| {
+                set_img_style(String::new());
+                set_is_img_loading(false);
+            }
         />
+        <Show when=move || is_img_loading()>
+            <PlaceholderImage />
+        </Show>
 
         <p>{description}</p>
     }
