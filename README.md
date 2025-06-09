@@ -1,9 +1,23 @@
 # Introduction
 
+Leptos Tech Demo uses the [mise](https://mise.jdx.dev) tool to ensure that
+the dev experience is consistent across all platforms. Once [mise](https://mise.jdx.dev/getting-started.html) and the [Rust
+toolchain](https://rustup.rs) is installed, use the following commands to get up and running.
+
+```sh
+mise install # installs all required dev tools
+mise run dev # opens the web applicaiton in the broswer and runs the localhost at port 3000
+# Additionally, mise tasks have been setup for linting
+mise run lint | mise run lint:fix # linting
+mise run format | mise run format:fix # formatting
+mise run check | mise run check:fix # both linting and formatting
+mise run build | mise run build:release # build the application in debug and release mode
+```
+
 > [!NOTE]
 > This demo was originally created for the CS732/SOFTENG750 course at UoA to demonstrate the particular features of Leptos CSR
 > in context of the taught content of the course (being React frontend). As such, much of the demo code here matches
-> examples given in class, however the very simple pokedex implementation makes use of the public
+> examples given in class, however the very simple Pokedex implementation makes use of the public
 > [Pokémon Api](https://pokeapi.co) instead of a dummy express server. Since the assignment, I have updated the leptos
 > version from 0.6 to 0.8 (a real behemoth of a task, due to how cursed working with a non-stable rust frontend is).
 > I have also used the tool [mise](https://mise.jdx.dev) to ensure the a consistent dev experience. Below contains my
