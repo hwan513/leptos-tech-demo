@@ -17,37 +17,37 @@ fn initial_products() -> Vec<Item> {
             id: 0,
             name: "Abra".to_string(),
             cost: 180,
-            image: "/images/Abra.png".to_string(),
+            image: "/images/Abra".to_string(),
         },
         Item {
             id: 1,
             name: "Clefairy".to_string(),
             cost: 500,
-            image: "/images/Clefairy.png".to_string(),
+            image: "/images/Clefairy".to_string(),
         },
         Item {
             id: 2,
             name: "Nidorina".to_string(),
             cost: 1200,
-            image: "/images/Nidorina.png".to_string(),
+            image: "/images/Nidorina".to_string(),
         },
         Item {
             id: 3,
             name: "Dratini".to_string(),
             cost: 2800,
-            image: "/images/Dratini.png".to_string(),
+            image: "/images/Dratini".to_string(),
         },
         Item {
             id: 4,
             name: "Scyther".to_string(),
             cost: 5500,
-            image: "/images/Scyther.png".to_string(),
+            image: "/images/Scyther".to_string(),
         },
         Item {
             id: 5,
             name: "Porygon".to_string(),
             cost: 9999,
-            image: "/images/Porygon.png".to_string(),
+            image: "/images/Porygon".to_string(),
         },
     ]
 }

@@ -1,7 +1,7 @@
 use core::result::Result;
 use gloo_net::http::Request;
-use leptos::prelude::*;
 use leptos::Params;
+use leptos::prelude::*;
 use leptos_router::hooks::use_params;
 use leptos_router::params::Params;
 use serde::Deserialize;
@@ -125,5 +125,14 @@ fn PokemonLoading() -> impl IntoView {
 /// View for the placeholder image
 #[component]
 fn PlaceholderImage() -> impl IntoView {
-    view! { <img class=styles::placeholder_image src="/images/white-pokeball.png" /> }
+    view! {
+        <picture>
+            <source srcset="/images/white-pokeball.webp" type="image/webp" />
+            <img
+                class=styles::placeholder_image
+                src="/images/white-pokeball.png"
+                alt="Placeholder Pokeball"
+            />
+        </picture>
+    }
 }

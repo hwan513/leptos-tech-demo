@@ -2,9 +2,9 @@ use core::result::Result;
 use gloo_net::http::Request;
 use leptos::prelude::*;
 use leptos_router::{
+    NavigateOptions,
     hooks::{use_navigate, use_query},
     params::Params,
-    NavigateOptions,
 };
 use serde::Deserialize;
 use stylance::import_style;
@@ -140,7 +140,10 @@ fn PokedexItem(#[prop(optional)] pokemon: Pokemon) -> impl IntoView {
     }
     view! {
         <a href=pokemon.id.to_string() class=poke_style::list_item>
-            <img src="/images/pokeball.png" />
+            <picture>
+                <source srcset="/images/pokeball.webp" type="image/webp" />
+                <img src="/images/pokeball.png" alt="Pokeball icon" />
+            </picture>
             <span>{pokemon.name}</span>
         </a>
     }

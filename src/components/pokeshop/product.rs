@@ -13,7 +13,10 @@ pub fn Product(item: Item) -> impl IntoView {
     let CartContext(_, set_cart) = use_context::<CartContext>().unwrap();
     view! {
         <div class=style::product>
-            <img src=item.image />
+            <picture>
+                <source srcset=format!("{}.webp", &item.image) type="image/webp" />
+                <img alt=&item.name src=format!("{}.png", &item.image) />
+            </picture>
             <div>
                 <h3>{item.name}</h3>
                 <p>"Cost:" {item.cost}</p>

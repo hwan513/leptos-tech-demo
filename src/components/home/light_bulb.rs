@@ -9,15 +9,23 @@ pub fn LightBulb() -> impl IntoView {
     let toggle_light = move |_| {
         set_on(!is_on.get());
     };
+    // To keep reactivity, the if/else control flow needs to be enclosed by a closure:
+    // move || if {} else {}
+    let image_source = move || {
+        if is_on() {
+            "images/light-on"
+        } else {
+            "images/light-off"
+        }
+    };
     view! {
         <section>
             <p>{"Click to toggle the light bulb"}</p>
-            <img
-                // To keep reactivity, the if/else control flow needs to be enclosed by a closure:
-                // move || if {} else {}
-                src=move || if is_on() { "images/light-on.png" } else { "images/light-off.png" }
-                on:click=toggle_light
-            />
+            <picture>
+                // `move || code()` is additionally also needed here for reactivity
+                <source srcset=move || format!("{}.webp", image_source()) type="image/webp" />
+                <img src=move || format!("{}.png", image_source()) on:click=toggle_light />
+            </picture>
         </section>
     }
 }
