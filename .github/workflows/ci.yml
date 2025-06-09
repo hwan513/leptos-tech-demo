@@ -1,0 +1,52 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+env:
+  MISE_EXPERIMENTAL: true
+  RUSTFLAGS: "-Dwarnings"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+
+      - name: Install tools
+        run: mise run install
+
+      - name: Cache rust toolchain paths
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            ~/.rustup/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/rust-toolchain.toml', '**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Check formatting
+        run: mise run format
+
+      - name: Check linting
+        run: mise run lint
+
+      - name: Build in release mode
+        run: mise run builld:release
