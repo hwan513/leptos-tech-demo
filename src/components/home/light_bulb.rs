@@ -11,8 +11,9 @@ pub fn LightBulb() -> impl IntoView {
     };
     view! {
         <section>
+            <p>{"Click to toggle the light bulb"}</p>
             <img
-                // To keep reactitivity, the if/else control flow needs to enclosed by a closure:
+                // To keep reactivity, the if/else control flow needs to be enclosed by a closure:
                 // move || if {} else {}
                 src=move || if is_on() { "images/light-on.png" } else { "images/light-off.png" }
                 on:click=toggle_light

@@ -1,3 +1,4 @@
+use chrono::{Datelike, Local, NaiveDate};
 use leptos::prelude::*;
 
 /// About component, with an on:input event to set the name for the greeting and a brief
@@ -6,6 +7,14 @@ use leptos::prelude::*;
 #[component]
 pub fn About() -> impl IntoView {
     let (name, setName) = signal(String::new());
+    let birthday = NaiveDate::from_ymd_opt(2002, 10, 22).unwrap();
+    let now = Local::now().date_naive();
+    let mut age = now.year() - birthday.year();
+    // Account dates within each year
+    if now.ordinal0() < birthday.ordinal0() {
+        age -= 1;
+    }
+
     view! {
         <section>
             <input
@@ -15,8 +24,7 @@ pub fn About() -> impl IntoView {
                     setName(event_target_value(&ev));
                 }
             />
-
-            <AboutMe name=name age=21 />
+            <AboutMe name=name age=age />
         </section>
     }
 }
@@ -26,9 +34,9 @@ fn AboutMe(
     /// This is a required component property, the code will not compile without it
     /// You can also see how ReadSignal<> can be passed into props by defining the type
     name: ReadSignal<String>,
-    /// Optional property: defaults to the default value of the data type: 0 for u8
+    /// Optional property: defaults to the default value of the data type.
     #[prop(optional)]
-    age: u8,
+    age: i32,
     /// Optional property with default: if no value is given, then it will default to pizza
     #[prop(default="pizza 🍕".to_string())]
     favourite_food: String,
