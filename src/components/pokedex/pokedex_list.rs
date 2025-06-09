@@ -19,7 +19,7 @@ pub struct PokemonJson {
 }
 
 /// Struct used for props passing for `PokedexItem`
-#[derive(Clone)]
+#[derive(Clone, Default)]
 pub struct Pokemon {
     pub id: usize,
     pub name: String,
@@ -67,30 +67,51 @@ pub fn PokedexList() -> impl IntoView {
 
     view! {
         <aside class=poke_style::list>
-            // Very rough pagination. I'm being very lazy here.
-            {pokemon_list} <div class=poke_style::buttons>
-                // previous and next buttons
-                <button
-                    disabled=move || offset() == 0
-                    on:click=move |_| set_offset.update(|num| *num = (*num - limit).max(0))
-                >
-                    previous
-                </button>
-                <button on:click=move |_| {
-                    set_offset.update(|num| *num += limit);
-                }>next</button>
-            </div>
+            <Suspense fallback=move || {
+                view! {
+                    {(0..limit).map(|_| view! { <PokedexItem /> }).collect_view()}
+                    <div class=poke_style::buttons>
+                        <button disabled>previous</button>
+                        <button disabled>next</button>
+                    </div>
+                }
+            }>
+                // Very rough pagination. I'm being very lazy here.
+                {pokemon_list} <div class=poke_style::buttons>
+                    // previous and next buttons
+                    <button
+                        disabled=move || offset() == 0
+                        on:click=move |_| set_offset.update(|num| *num = (*num - limit).max(0))
+                    >
+                        previous
+                    </button>
+                    <button on:click=move |_| {
+                        set_offset.update(|num| *num += limit);
+                    }>next</button>
+                </div>
+            </Suspense>
         </aside>
     }
 }
 
 /// View for an item in the list
 #[component]
-fn PokedexItem(pokemon: Pokemon) -> impl IntoView {
+fn PokedexItem(#[prop(optional)] pokemon: Pokemon) -> impl IntoView {
+    // Check for if the pokemon is as default. i.e. optional
+    if pokemon.id == 0 {
+        return view! {
+            <a href="pokemon" class=poke_style::list_item>
+                <img src="/images/pokeball.png" />
+                <span class=poke_style::list_item_loading>Loading ...</span>
+            </a>
+        }
+        .into_any();
+    }
     view! {
         <a href=pokemon.id.to_string() class=poke_style::list_item>
             <img src="/images/pokeball.png" />
             <span>{pokemon.name}</span>
         </a>
     }
+    .into_any()
 }
