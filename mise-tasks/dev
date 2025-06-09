@@ -1,0 +1,5 @@
+#MISE description="Serve the application and watch for changes"
+#MISE sources=["src/**/*", "Cargo.lock"]
+#MISE outputs={auto=true}
+trunk serve --port 3000 --open &
+stylance --watch --output-file public/stylers.scss .

@@ -1,0 +1,4 @@
+#MISE description="Check linting in rust files"
+#MISE sources=["src/**/*.rs"]
+#MISE outputs={auto=true}
+cargo clippy --all-targets --all-features -- -D warnings

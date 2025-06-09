@@ -1,0 +1,5 @@
+#MISE description="Build the portfolio application"
+#MISE sources=["src/**/*", "Cargo.lock"]
+#MISE outputs={auto=true}
+stylance --output-file public/stylers.scss . &&
+  trunk build

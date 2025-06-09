@@ -1,0 +1,18 @@
+[tools.cargo-binstall]
+version = "1.12.5"
+backend = "aqua:cargo-bins/cargo-binstall"
+
+[tools."cargo:stylance-cli"]
+version = "0.6.0"
+backend = "cargo:stylance-cli"
+
+[tools."ubi:bram209/leptosfmt"]
+version = "0.1.33"
+backend = "ubi:bram209/leptosfmt"
+
+[tools."ubi:trunk-rs/trunk"]
+version = "0.21.14"
+backend = "ubi:trunk-rs/trunk"
+
+[tools."ubi:trunk-rs/trunk".checksums]
+trunk-macos-aarch64 = "sha256:d6765075a16ed52ed1e9764610f6771891b235037a6d93c26e40869ef65d6a22"

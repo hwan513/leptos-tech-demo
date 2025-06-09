@@ -1,0 +1,5 @@
+#MISE description="Reproducibly build the portfolio application with optimizations"
+#MISE sources=["src/**/*", "Cargo.lock"]
+#MISE outputs={auto=true}
+stylance --output-file public/stylers.scss . &&
+  trunk build --release --minify

@@ -1,0 +1,10 @@
+[tools]
+"ubi:trunk-rs/trunk" = "latest"
+"ubi:bram209/leptosfmt" = "latest"
+cargo-binstall = "latest"
+"cargo:stylance-cli" = "latest"
+
+[tasks.update-scripts]
+run = "chmod -R +x mise-tasks/"
+description = "Update scripts execution permissions defined in mise-tasks"
+sources = ["mise-tasks/**/*"]
