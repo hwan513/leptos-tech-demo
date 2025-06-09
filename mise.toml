@@ -1,3 +1,7 @@
+[settings]
+experimental = true
+idiomatic_version_file_enable_tools = []
+
 [tools]
 "ubi:trunk-rs/trunk" = "latest"
 "ubi:bram209/leptosfmt" = "latest"
